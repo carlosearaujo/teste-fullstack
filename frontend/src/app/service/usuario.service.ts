@@ -3,11 +3,15 @@ import { Usuario } from "../model/usuario.model";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { map } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService{
 
-    constructor(private http: HttpClient){}
+    KEY_USUARIO_LOGADO = 'usuario';
+    private _usuarioLogado: Usuario | undefined;
+
+    constructor(private http: HttpClient, private router: Router){}
     
     login(value: { login: string, password: string }) {
         const httpOptions = {
@@ -23,10 +27,6 @@ export class UsuarioService{
         }))
     }
 
-    KEY_USUARIO_LOGADO = 'usuario';
-
-    private _usuarioLogado: Usuario | undefined;
-
     get usuarioLogado(){
         if(!this._usuarioLogado){
             const usuarioJSONStr = localStorage.getItem(this.KEY_USUARIO_LOGADO);
@@ -40,6 +40,12 @@ export class UsuarioService{
 
     private set usuarioLogado(usuario){
         localStorage.setItem(this.KEY_USUARIO_LOGADO, JSON.stringify(usuario));
+    }
+
+    logout() {
+        this.usuarioLogado = null;
+        localStorage.removeItem(this.KEY_USUARIO_LOGADO);
+        this.router.navigate(['/login']);
     }
 
 }

@@ -1,0 +1,13 @@
+:host ::ng-deep{ 
+    .container-panel .p-panel .p-panel-content{
+        padding: 0;
+    }
+    .p-panel-content{
+        display: flex;
+    }
+    .p-menu{
+        height: 100%;
+        border-top: 0;
+        border-radius: 0;
+    }
+}

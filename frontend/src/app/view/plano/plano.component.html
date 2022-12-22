@@ -1,1 +1,35 @@
-<p>plano works!</p>
+<h1 class = "mb-4 mt-4 titulo">Planos</h1>
+<form  [formGroup]="form" class = "mb-4"><p-panel [header] = "form?.value?.id ? 'Alterar Plano' :'Adicionar Novo Plano'">
+    <input *ngIf = "form?.value?.id" pInputText type="text" formControlName="id" class="form-control" name="id" disabled>
+    <input pInputText type="text" formControlName="nome" class="form-control" name="nome" placeholder="Nome">
+    <p-inputNumber mode="currency" currency="BRL" formControlName="valor" class="form-control mr-2" name="valor" placeholder="Valor"></p-inputNumber>
+    <button pButton pRipple type="button" icon="pi pi-save" class="p-button-rounded p-button-success" [disabled]="!form.valid" (click) = "save()"></button>
+</p-panel></form>
+<p-panel header = "Listagem de Planos">
+    <p-table [value]="planos">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-plano>
+            <tr>
+                <td>{{plano.nome}}</td>
+                <td>{{plano.valor}}</td>
+                <td class = "flex justify-content-end">
+                    <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-success mr-2" (click) = "edit(plano)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click) = "delete(plano)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-beneficiarios = "beneficiarios">
+            <tr>
+                <td [attr.colspan]="beneficiarios?.length || 0">
+                    Nenhum Plano Encontrado
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-panel>

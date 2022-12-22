@@ -1,6 +1,5 @@
 :host{
     width: 100%;
-    
 }
 
 :host ::ng-deep{
@@ -17,8 +16,6 @@
     justify-content: center;
 }
 
-input{
+input, p-inputMask, p-dropdown{
     margin-right: 1.25em;
 }
-
-

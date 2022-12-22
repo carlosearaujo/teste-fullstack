@@ -1,0 +1,44 @@
+<h1 class = "mb-4 mt-4 titulo">Beneficiários</h1>
+<form [formGroup] = "form" class = "mb-4"><p-panel [header] = "form?.value?.id ? 'Alterar Beneficiário' :'Adicionar Novo Beneficiário'">
+    <input *ngIf = "form?.value?.id" pInputText type="text" formControlName="id" class="form-control" name="id" disabled>
+    <input pInputText type="text" formControlName="nome" class="form-control" name="nome" placeholder="Nome">
+    <p-inputMask formControlName="cpf" mask="999.999.999-99" class="form-control" name="cpf" placeholder="CPF"></p-inputMask>
+    <input pInputText type="text" formControlName="email" class="form-control" name="email" placeholder="Email" />
+    <input pInputText type="number" formControlName="idade" class="form-control" name="idade" placeholder="Idade" />
+    <p-dropdown [options]="planos" optionValue = "id" optionLabel="nome" formControlName="idPlano" placeholder="Selecione um Plano" emptyMessage = "Nenhum Plano Encontrado"></p-dropdown>
+    
+    <button pButton pRipple type="button" icon="pi pi-save" class="p-button-rounded p-button-success" [disabled]="!form.valid" (click) = "save()"></button>
+</p-panel></form>
+<p-panel header = "Listagem de Beneficiários">
+    <p-table [value]="beneficiarios">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Idade</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-beneficiario>
+            <tr>
+                <td>{{beneficiario.nome}}</td>
+                <td>{{beneficiario.cpf}}</td>
+                <td>{{beneficiario.email}}</td>
+                <td>{{beneficiario.idade}}</td>
+                <td class = "flex justify-content-end">
+                    <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-success mr-2" (click) = "edit(beneficiario)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click) = "delete(beneficiario)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-beneficiarios = "beneficiarios">
+            <tr>
+                <td [attr.colspan]="beneficiarios?.length || 0">
+                    Nenhum Beneficiário Encontrado
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-panel>
+
