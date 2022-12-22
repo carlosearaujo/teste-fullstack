@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Beneficiario } from 'src/app/model/beneficiario.model';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService} from 'primeng/api';
 import { Plano } from 'src/app/model/plano.model';
 import { PlanoService } from 'src/app/service/plano.service';
+import { cpf } from 'cpf-cnpj-validator'; 
 
 @Component({
   selector: 'app-beneficiario',
@@ -35,7 +36,7 @@ export class BeneficiarioComponent implements OnInit {
     this.form = this._fb.group({
       id: [],
       nome: ['', Validators.required],
-      cpf: ['',  [Validators.required]],
+      cpf: ['',  [Validators.required, (control:AbstractControl) => !cpf.isValid(control.value) ? { invalidCpf: true } : null]],
       email: ['', [Validators.required, Validators.email]],
       idade: ['', Validators.required],
       idPlano: ['', Validators.required]
