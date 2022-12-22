@@ -14,10 +14,13 @@ export class WorkspaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [{
-      label: 'Beneficiário', routerLink: '/beneficiario'
+      label: 'Beneficiário', routerLink: '/beneficiario', icon: 'pi pi-users'
     },
     {
-        label: 'Plano', routerLink: '/plano'
+        label: 'Plano', routerLink: '/plano', icon: 'pi pi-calendar'
+    },
+    {
+      label: 'Logout', routerLink: '/login', icon: 'pi pi-power-off'
     }];
   }
 
