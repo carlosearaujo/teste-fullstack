@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const user = this.usuarioService.usuarioLogado;
         const isApiUrl = request.url.startsWith(environment.apiUrl);
-        if (user?.token && isApiUrl) {
+        if (user?.token && isApiUrl && request.url.indexOf('token') == -1) {
             request = request.clone({ setHeaders: { Authorization: `Bearer ${user.token}` } });
         }
 
