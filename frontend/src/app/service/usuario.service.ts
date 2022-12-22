@@ -40,6 +40,7 @@ export class UsuarioService{
 
     private set usuarioLogado(usuario){
         localStorage.setItem(this.KEY_USUARIO_LOGADO, JSON.stringify(usuario));
+        this._usuarioLogado = usuario;
     }
 
     logout() {
